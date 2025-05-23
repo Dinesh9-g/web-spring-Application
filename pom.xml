@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -41,14 +42,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Docker Java API (optional) -->
+        <!-- Docker Java API -->
         <dependency>
             <groupId>com.github.docker-java</groupId>
             <artifactId>docker-java</artifactId>
             <version>3.3.0</version>
         </dependency>
 
-        <!-- Kubernetes Client (optional) -->
+        <!-- Kubernetes Client -->
         <dependency>
             <groupId>io.kubernetes</groupId>
             <artifactId>client-java</artifactId>
@@ -58,10 +59,23 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin -->
+            <!-- Spring Boot Maven Plugin with mainClass -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.example.DevopsDashboardApplication</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Java 17 Compiler -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
             </plugin>
 
             <!-- Docker Build Plugin -->
@@ -78,7 +92,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Terraform Maven Plugin (optional) -->
+            <!-- Terraform Runner -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -125,7 +139,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>kubernetes</id>
             <build>
